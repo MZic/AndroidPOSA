@@ -24,12 +24,14 @@ class SimpleAtomicLong
      * The ReentrantReadWriteLock used to serialize access to mValue.
      */
     // TODO - replace the null with the appropriate initialization:
+    private ReentrantReadWriteLock mRWLock = new ReentrantReadWriteLock();
 
     /**
      * Creates a new SimpleAtomicLong with the given initial value.
      */
     public SimpleAtomicLong(long initialValue) {
         // TODO - you fill in here
+    	this.mValue = initialValue;    	
     }
 
     /**
@@ -39,6 +41,16 @@ class SimpleAtomicLong
      */
     public long get() {
         // TODO - you fill in here
+        long value;
+    	
+        mRWLock.readLock().lock();
+        try {
+        	value = mValue;
+        } finally {
+        	mRWLock.readLock().unlock();
+        }
+        
+        return value;    	
     }
 
     /**
@@ -48,6 +60,17 @@ class SimpleAtomicLong
      */
     public long decrementAndGet() {
         // TODO - you fill in here
+        long value = 0;
+        
+        mRWLock.writeLock().lock();
+        try{
+         mValue = mValue-1;
+        }finally{
+        	mRWLock.writeLock().unlock();
+        }
+
+        value = get();
+        return value; 	
     }
 
     /**
@@ -57,6 +80,17 @@ class SimpleAtomicLong
      */
     public long getAndIncrement() {
         // TODO - you fill in here
+        long value = 0;
+
+        value = get();
+        mRWLock.writeLock().lock();
+        try{
+          mValue = mValue+1;
+        }finally{
+        	mRWLock.writeLock().unlock();
+        }
+        
+        return value;
     }
 
     /**
@@ -66,6 +100,17 @@ class SimpleAtomicLong
      */
     public long getAndDecrement() {
         // TODO - you fill in here
+        long value = 0;
+
+        value = get();
+        mRWLock.writeLock().lock();
+        try{
+          mValue = mValue-1;
+        }finally{
+        	mRWLock.writeLock().unlock();
+        }
+        
+        return value;    	
     }
 
     /**
@@ -75,6 +120,17 @@ class SimpleAtomicLong
      */
     public long incrementAndGet() {
         // TODO - you fill in here
+        long value = 0;
+
+        mRWLock.writeLock().lock();
+        try{
+          mValue = mValue+1;
+        }finally{
+        	mRWLock.writeLock().unlock();
+        }
+        
+        value = get();       
+        return value;   	
     }
 }
 
