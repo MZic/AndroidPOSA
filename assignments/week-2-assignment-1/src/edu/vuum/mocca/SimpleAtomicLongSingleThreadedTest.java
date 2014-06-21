@@ -14,7 +14,6 @@ import org.junit.Test;
 public class SimpleAtomicLongSingleThreadedTest {
     /*
      * Test possible edge cases at 0, and a large negative and
-     * positive.
      */
     final static long[] mTestValues = { -100, -1, 0, 1, 100 };
 

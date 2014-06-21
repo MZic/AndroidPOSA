@@ -11,7 +11,7 @@ import java.util.concurrent.locks.ReentrantLock;
  *        Condition). It must implement both "Fair" and "NonFair" semaphore
  *        semantics, just liked Java Semaphores.
  */
-public class SimpleSemaphore {
+public class SimpleSemaphore{
     /**
      * Define a ReentrantLock to protect the critical section.
      */
