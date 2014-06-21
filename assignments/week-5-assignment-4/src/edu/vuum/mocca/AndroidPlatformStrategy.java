@@ -40,13 +40,14 @@ public class AndroidPlatformStrategy extends PlatformStrategy
      * Latch to decrement each time a thread exits to control when the
      * play() method returns.
      */
-    private static CountDownLatch mLatch = null;
+    private CountDownLatch mLatch = null;
 
     /** Do any initialization needed to start a new game. */
     public void begin()
     {
         /** Reset the CountDownLatch. */
         // TODO - You fill in here.
+    	mLatch = new CountDownLatch(2);
     }
 
     /** Print the outputString to the display. */
@@ -57,18 +58,36 @@ public class AndroidPlatformStrategy extends PlatformStrategy
          * and appends the outputString to a TextView. 
          */
         // TODO - You fill in here.
+    	((Activity) mActivity.get()).runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				mTextViewOutput.append(outputString);
+			}
+    	});
+    	
+    	
     }
 
     /** Indicate that a game thread has finished running. */
     public void done()
     {	
         // TODO - You fill in here.
+    	((Activity) mActivity.get()).runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				mLatch.countDown();
+			}
+    	});
     }
 
     /** Barrier that waits for all the game threads to finish. */
     public void awaitDone()
     {
         // TODO - You fill in here.
+        try {
+            mLatch.await();
+        } catch(java.lang.InterruptedException e) {
+        }
     }
 
     /** Returns the platform name in a String. */

@@ -17,7 +17,7 @@ public class ConsolePlatformStrategy extends PlatformStrategy
      * Latch to decrement each time a thread exits to control when the
      * play() method returns.
      */
-    private static CountDownLatch mLatch = new CountDownLatch(2);
+    private CountDownLatch mLatch = new CountDownLatch(2);
 
     /** Contains information for outputting to console window. */
     PrintStream mOutput;
