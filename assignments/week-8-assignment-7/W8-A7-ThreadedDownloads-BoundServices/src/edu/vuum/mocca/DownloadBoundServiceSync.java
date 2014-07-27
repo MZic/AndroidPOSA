@@ -51,8 +51,7 @@ public class DownloadBoundServiceSync extends Service {
                 // download the file using the appropriate helper
                 // method in DownloadUtils and then return the
                 // pathname back to the client.
-        		String pathname = DownloadUtils.downloadFile(getApplicationContext(), uri);
-        		return pathname;
+                return DownloadUtils.downloadFile( DownloadBoundServiceSync.this, uri);
             }
 	};
 	
@@ -75,7 +74,6 @@ public class DownloadBoundServiceSync extends Service {
     public static Intent makeIntent(Context context) {
         // TODO - replace the null to create the appropriate Intent
         // and return it to the caller.
-	    Intent intent = new Intent(context, DownloadBoundServiceSync.class);
-        return intent;
+        return new Intent( context, DownloadBoundServiceSync.class);
     }
 }
